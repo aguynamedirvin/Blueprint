@@ -2,11 +2,16 @@ module.exports = function (grunt) {
     grunt.initConfig({
 
 
-        // Configuration
+        /**
+            Configuration
+        **/
         pkg: grunt.file.readJSON('package.json'),
 
 
-        // Directories      // Use ex: '<%= dirs.src.js %>/main.js' -> 'src/js/main.js'
+        /**
+            Directories
+            Use ex: '<%= dirs.src.js %>/main.js' -> 'src/js/main.js'
+        **/
         dirs: {
             // Source
             src: {
@@ -24,7 +29,10 @@ module.exports = function (grunt) {
         },
 
 
-        // Watch our files for changes
+        /**
+            Watch our files for changes
+            https://github.com/gruntjs/grunt-contrib-watch
+        **/
         watch: {
             options: {
                 livereload: {
@@ -42,7 +50,7 @@ module.exports = function (grunt) {
 
             css: {
                 files: ['<%= dirs.src.css %>/**/*.{sass,scss,css}'],
-                tasks: ['sass', 'concat'],
+                tasks: ['sass'],
             },
 
             js: {
@@ -52,44 +60,39 @@ module.exports = function (grunt) {
         },
 
 
-        // Compile our SASS
+        /**
+            Compile our SASS
+            https://github.com/sindresorhus/grunt-sass
+        **/
         sass: {
             options: {
                 outputStyle: 'expanded'
             },
             default: {
                 files: {
-                    '<%= dirs.dist.css %>/main.css': '<%= dirs.src.css %>/*.{sass,scss}'
+                    '<%= dirs.dist.css %>/main.css': '<%= dirs.src.css %>/main.sass'
                 }
             }
         },
 
 
-        // Combine our files
-        concat: {
-            default: {
-                files: [
-                    // Stylesheets
-                    {
-                        dest: '<%= dirs.dist.css %>/main.css', 
-                        src: ['<%= dirs.dist.css %>/main.css', '<%= dirs.src.css %>/vendor/*.css']
-                    }
-                ]
-            }
-        },
-
-
-        // Combine CSS media queries
+        /**
+            Combine CSS media queries
+            https://github.com/buildingblocks/grunt-combine-media-queries
+        **/
         cmq: {
             default: {
                 files: {
-                    src: '<%= dirs.dist.css %>/*.css'
+                    '<%= dirs.dist.css %>': '<%= dirs.dist.css %>/*.css'
                 }
             }
         },
 
 
-        // Finish off our CSS
+        /** 
+            Finish off our CSS
+            https://github.com/nDmitry/grunt-postcss
+        **/
         postcss: {
             options: {
                 processors: [
@@ -109,7 +112,10 @@ module.exports = function (grunt) {
         },
 
 
-        // Combine and minify our JavaScript
+        /**
+            Combine and minify our JavaScript
+            https://github.com/gruntjs/grunt-contrib-uglify
+        **/
         uglify: {
             build: {
                 options: {
@@ -170,7 +176,10 @@ module.exports = function (grunt) {
         },
 
 
-        // Minify our images
+        /** 
+            Minify our images
+            https://github.com/gruntjs/grunt-contrib-imagemin
+        **/
         imagemin: {
             default: {
                 options: {
@@ -190,21 +199,26 @@ module.exports = function (grunt) {
 
 
 
-    // Load Plugins
+    /** 
+        Load our Grunt plugins
+    **/
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-sass');
-    grunt.loadNpmTasks('grunt-contrib-concat');
+    grunt.loadNpmTasks('grunt-combine-media-queries');
     grunt.loadNpmTasks('grunt-postcss');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-imagemin');
 
 
+    /**
+        Register Tasks
+    **/
+    grunt.registerTask('build', ['sass', 'uglify:default'])
 
-    // Register Tasks
-    grunt.registerTask('build', ['sass', 'concat'])
     grunt.registerTask('default', ['build', 'watch']);
-    // Production
-    grunt.registerTask('production', ['build', 'postcss', 'uglify:build', 'imagemin']);
+
+    // Production - Build the files for production use
+    grunt.registerTask('production', ['sass', 'postcss', 'uglify:build', 'imagemin']);
 
 
 };
