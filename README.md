@@ -9,6 +9,7 @@ You can grab all the tools here:
 * Grunt: http://gruntjs.com
 
 ## File Structure
+````
 ├── assets
 │   ├── assets
 │   ├── css
@@ -32,3 +33,4 @@ You can grab all the tools here:
 ├── package.json
 ├── README.md
 ├── .gitignore
+````
