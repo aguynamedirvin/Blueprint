@@ -17,8 +17,10 @@ You can grab all the tools here:
 │   └── js
 │
 ├── src
-│	├── images
+│   ├── images
 │   ├── js
+│   │   ├── vendor
+│   │   ├── main.js
 │   └── stylesheets
 │       ├── base
 │       ├── components
