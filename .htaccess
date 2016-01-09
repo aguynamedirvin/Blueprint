@@ -1,4 +1,14 @@
-# BEGIN Compress text files
+# Suppressing / Forcing the `www.` at the beginning of URLs
+<ifModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} !=on
+    RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+    RewriteRule ^ %{ENV:PROTO}://%1%{REQUEST_URI} [R=301,L]
+</ifModule>
+
+
+
+# Compression
 <ifModule mod_deflate.c>
     AddOutputFilterByType DEFLATE text/html text/xml text/css text/plain
     AddOutputFilterByType DEFLATE image/svg+xml application/xhtml+xml application/xml
@@ -7,10 +17,10 @@
     AddOutputFilterByType DEFLATE application/x-font-ttf application/x-font-otf
     AddOutputFilterByType DEFLATE font/truetype font/opentype
 </ifModule>
-# END Compress text files
 
 
-# BEGIN Expire headers
+
+# Expire headers
 <ifModule mod_expires.c>
     ExpiresActive On
     ExpiresDefault "access plus 5 seconds"
@@ -26,10 +36,10 @@
     ExpiresByType text/html "access plus 600 seconds"
     ExpiresByType application/xhtml+xml "access plus 600 seconds"
 </ifModule>
-# END Expire headers
 
 
-# BEGIN Cache-Control Headers
+
+# Cache-Control Headers
 <ifModule mod_headers.c>
     <filesMatch ".(ico|jpe?g|png|gif|swf)$">
     Header set Cache-Control "public"
@@ -47,9 +57,8 @@
     Header set Cache-Control "private, must-revalidate"
     </filesMatch>
 </ifModule>
-# END Cache-Control Headers
 
 
-# BEGIN Turn ETags Off
+
+# Turn ETags Off
     FileETag None
-# END Turn ETags Off
