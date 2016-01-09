@@ -213,12 +213,14 @@ module.exports = function (grunt) {
     /**
         Register Tasks
     **/
-    grunt.registerTask('build', ['sass', 'uglify:default'])
+    // Build our CSS and JS files
+    grunt.registerTask('build', ['sass', 'uglify:default']);
 
+    // Watch our files and compile if any changes
     grunt.registerTask('default', ['build', 'watch']);
 
     // Production - Build the files for production use
-    grunt.registerTask('production', ['sass', 'postcss', 'uglify:build', 'imagemin']);
+    grunt.registerTask('production', ['sass', 'postcss', 'cmq', 'uglify:build', 'imagemin']);
 
 
 };
