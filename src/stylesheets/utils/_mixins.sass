@@ -2,7 +2,55 @@
 //  Mixins
 //  --------------------------------------------------------------
 
-/// Breakpoints v0.1
-@mixin mq($breakpoint, $query: min)
-    @media screen and (#{$query}-width: $breakpoint)
-        @content
+//  --------------------------------------------------------------
+//  Breakpoints v0.1.1
+//  --------------------------------------------------------------
+@mixin mq($breakpoint, $breakpoint2: null, $query: min)
+
+    // Check is breakpoint is unitless
+    @if unitless($breakpoint)
+        @warn 'Assuming '#{$breakpoint}' to be in pixels'
+    
+    @if $breakpoint2 != null
+        @media screen and (min-width: #{$breakpoint}) and (max-width: #{$breakpoint2})
+            @content
+
+        // Check is breakpoint2 is unitless
+        @if unitless($breakpoint2)
+            @warn 'Assuming '#{$breakpoint2}' to be in pixels'
+    
+    @else
+        @media screen and (#{$query}-width: $breakpoint)
+            @content
+
+
+//  --------------------------------------------------------------
+//  Grid v0.1
+//  Inspired by Grzybek
+//  --------------------------------------------------------------
+
+// Row
+@mixin row($inside: false) 
+    @if($inside == true) 
+        margin-left: -$gutter / 2
+        margin-right: -$gutter / 2
+    
+    @else 
+        width: 100%
+        max-width: $wrapper
+        margin-left: auto
+        margin-right: auto
+    
+    &:after 
+        clear: both
+        content: ''
+        display: table
+
+// Column
+@mixin col($width: 1, $padding: true) 
+    float: left
+    width: percentage($width)
+
+    @if($padding == true) 
+        padding-left: $gutter / 2
+        padding-right: $gutter / 2
