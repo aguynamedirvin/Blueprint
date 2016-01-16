@@ -3,7 +3,7 @@ Blueprint is, as the name suggest, a blueprint for your SASS and Grunt projects.
 
 ## Jump Start
 
-Make sure to have NodeJS, SASS, NPM, and Grunt (Grunt-CLI too) installed to download all project required files. Once you have the tools, from the Terminal run "npm install" on the project directory to install all necessary dependancies.
+Make sure to have NodeJS, SASS, NPM, and Grunt (Grunt-CLI too) installed to download all project required files. Once you have the tools, from the Terminal run `npm install` on the project directory to install all necessary dependancies.
 
 You can grab all the tools here:
 * <a href="https://nodejs.org/">NodeJS</a>
@@ -78,4 +78,5 @@ Settings such as the container width and gutter are defined in the utils/_variab
 
 
 ## Further Documentation
-* <a href="http://sass-lang.com/">SASS</a>
+* <a href="http://sass-lang.com/documentation/file.SASS_REFERENCE.html">SASS Reference</a>
+* <a href="http://gruntjs.com/getting-started/">Grunt: Getting Started</a>
