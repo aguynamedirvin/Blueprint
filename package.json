@@ -1,9 +1,9 @@
 {
-  "name": "Project-Structure",
-  "version": "0.1.0",
+  "name": "Blueprint",
+  "version": "0.1.7",
   "author": "Irvin Dominguez",
   "license": "MIT",
-  "description": "Project structure",
+  "description": "A blueprint for your Grunt and SASSy projects",
   "main": "Gruntfile.js",
   "devDependencies": {
     "autoprefixer": "^6.2.1",

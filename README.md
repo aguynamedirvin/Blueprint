@@ -37,5 +37,42 @@ You can grab all the tools here:
 └── .gitignore
 ````
 
+## Grid
+Blueprint includes an easy to use grid system for building quick layouts that works with a syntax similar to Susy and other grid systems.
+
+Settings such as the container with and gutter are defined in the utils/_variables.sass file
+
+````
+// Input
+.wrap
+    @include row
+    
+.content
+    @include col(8/12)
+
+// Output
+.wrap {
+  width: 100%;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.wrap:after {
+  clear: both;
+  content: '';
+  display: table;
+}
+
+.content {
+  float: left;
+  width: 66.6666666667%;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+````
+
+
+
 ## Further Documentation
 * <a href="http://sass-lang.com/">SASS</a>
