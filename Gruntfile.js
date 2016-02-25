@@ -89,7 +89,7 @@ module.exports = function (grunt) {
         },
 
 
-        /** 
+        /**
             Finish off our CSS
             https://github.com/nDmitry/grunt-postcss
         **/
@@ -98,7 +98,7 @@ module.exports = function (grunt) {
                 processors: [
                     require('autoprefixer')({ // Add vendor prefixes
                         browsers: [
-                            'last 2 versions', 
+                            'last 2 versions',
                             'ie 8-9',
                         ]
                     }),
@@ -141,10 +141,10 @@ module.exports = function (grunt) {
                         src: '<%= dirs.src.js %>/*.main.js',
 
                         /**
-                        
-                            Or you can orgranize by folder   
+
+                            Or you can orgranize by folder
                             Example: src/main/script1.js & src/main/script2.js -> assets/js/main.min.js
-                            
+
                             expand: true,
                             cwd: '<%= dirs.src.js %>/main',
                             src: '*.main.js',
@@ -176,7 +176,7 @@ module.exports = function (grunt) {
         },
 
 
-        /** 
+        /**
             Minify our images
             https://github.com/gruntjs/grunt-contrib-imagemin
         **/
@@ -188,7 +188,7 @@ module.exports = function (grunt) {
                 files: [{
                     expand: true,
                     cwd: '<%= dirs.src.img %>',
-                    src: ['*.{png,jpg,jpeg,gif}'],
+                    src: ['*.{png,jpg,jpeg,gif,svg}'],
                     dest: '<%= dirs.dist.img %>'
                 }]
             }
@@ -199,7 +199,7 @@ module.exports = function (grunt) {
 
 
 
-    /** 
+    /**
         Load our Grunt plugins
     **/
     grunt.loadNpmTasks('grunt-contrib-watch');
