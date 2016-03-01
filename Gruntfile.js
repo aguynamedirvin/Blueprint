@@ -15,16 +15,16 @@ module.exports = function (grunt) {
         dirs: {
             // Source
             src: {
-                css: 'src/stylesheets',
-                img: 'src/images',
-                js: 'src/js'
+                css: 'stylesheets',
+                img: 'images',
+                js: 'js'
             },
 
             // Distribution
             dist: {
-                css: 'assets/css',
-                img: 'assets/images',
-                js: 'assets/js'
+                css: 'dist/assets/css',
+                img: 'dist/assets/images',
+                js: 'dist/assets/js'
             }
         },
 
