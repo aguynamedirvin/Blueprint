@@ -13,26 +13,27 @@ You can grab all the tools here:
 
 ## File Structure
 ````
-├── assets
-│   ├── assets
-│   ├── css
-│   ├── images
-│   └── js
+├── dist
+│   └── assets
+│       ├── css
+│       ├── images
+│       └── js
 │
-├── src
-│   ├── images
-│   ├── js
-│   │   ├── vendor
-│   │   ├── main.js
-│   └── stylesheets
-│       ├── base
-│       ├── components
-│       ├── layout
-│       ├── pages
-│       ├── utils
-│       ├── vendor
-│       └── main.sass
-├── docs
+├── images
+│
+├── js
+│   ├── vendor
+│   └── main.js
+│
+├── stylesheets
+│   ├── base
+│   ├── components
+│   ├── layout
+│   ├── pages
+│   ├── utils
+│   ├── vendor
+│   └── main.sass
+│
 ├── Gruntfile.js
 ├── index.html
 ├── package.json
@@ -49,7 +50,7 @@ Settings such as the container width and gutter are defined in the utils/_variab
 // Input
 .wrap
     @include row
-    
+
 .content
     @include col(8/12)
 
