@@ -1,32 +1,5 @@
-.wrap {
-  width: 100%;
-  max-width: 80rem;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.wrap:after {
-  clear: both;
-  content: '';
-  display: table;
-}
-
-.content {
-  float: left;
-  width: 66.6666666667%;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
-.sidebar {
-  float: left;
-  width: 33.3333333333%;
-  padding-left: 0.5rem;
-  padding-right: 0.5rem;
-}
-
 /* ------------------------------------
-    Reset
+    Reset v.0.1.1
  ------------------------------------*/
 html, body, div, form, fieldset, legend, label {
   margin: 0;
@@ -54,6 +27,11 @@ caption {
 
 img {
   border: 0;
+}
+
+input {
+  -webkit-appearance: none;
+  -webkit-border-radius: 0;
 }
 
 /* ------------------------------------

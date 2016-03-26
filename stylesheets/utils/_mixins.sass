@@ -2,28 +2,73 @@
 //  Mixins
 //  --------------------------------------------------------------
 
+
 //  --------------------------------------------------------------
-//  Breakpoints v0.1.2
+//  Breakpoints v0.2.0
+//
+//  @var int, string
+//  @var int, string
+//  @var string
 //  --------------------------------------------------------------
 @mixin mq($breakpoint, $breakpoint2: null, $query: min)
 
-    // Check is breakpoint is unitless
-    @if unitless($breakpoint)
-        @warn "Assuming '#{$breakpoint}' to be in pixels"
-        $breakpoint: $breakpoint + 'px'
+    //**
+     * Check that value is an integer or string.
+     * If integer, make sure it has a unit.
+     * If string, look for key in $breakpoint map.
+     *
+     * @var int, string
+     *
+     **//
+    @function check( $value )
 
+        @if $value != null
+
+            // Check if the value is an integer
+            @if type-of($value) == number
+
+                // If unitless, assume it's in pixels
+                @if unitless($value)
+                    @warn "Assuming #{$value} to be in pixels"
+                    @return $value + 'px'
+
+                @else
+                    @return $value
+
+            @else
+
+                // Retrive value from key
+                $value: map-get($breakpoints, $value)
+
+                // If value exists, return the value
+                @if $value != null
+                    @return $value
+
+                @else
+                    @error "The value '#{$value}', does not exists"
+
+        @else
+            @return null
+
+
+    // Run checks
+    $breakpoint: check($breakpoint)
+    $breakpoint2: check($breakpoint2)
+
+
+    // Create media query
     @if $breakpoint2 != null
-        // Check is breakpoint2 is unitless
-        @if unitless($breakpoint2)
-            @warn "Assuming '#{$breakpoint2}' to be in pixels"
-            $breakpoint2: $breakpoint2 + 'px'
-
         @media screen and (min-width: #{$breakpoint}) and (max-width: #{$breakpoint2})
             @content
 
     @else
         @media screen and (#{$query}-width: $breakpoint)
             @content
+
+
+
+
+
 
 
 //  --------------------------------------------------------------
