@@ -7,21 +7,14 @@
     Base
  ------------------------------------*/
 
-*,
-*:after,
-*:before
-    box-sizing: border-box
-
 html, body
     height: 100%
-    margin: 0
-    padding: 0
 
 html
     font-size: 62.5%
 
 body
-    color: $font-color
+    color: getColor(dark)
     font:
         family: $font-family
         size: 1.6em
@@ -34,3 +27,10 @@ img, figure
 
 img
     vertical-align: top
+
+a
+    color: $link
+    text-decoration: none
+
+    &:hover
+        color: $link-hover

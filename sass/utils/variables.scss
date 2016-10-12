@@ -1,0 +1,88 @@
+//
+//  Global Variables
+//  --------------------------------------------------------------
+
+
+// Colors
+$color-green: #2ecc71;
+$color-yellow: #f1c40f;
+$color-red: #c0392b;
+
+$color-cornflower-blue: #374150;
+$color-pale-sky: #657786;
+$color-cadet-blue: #aab8c2;
+$color-mystic: #e1e8ed;
+$color-picton-blue: #449ddf;
+
+
+$colors: (
+    ui: (
+        'success': $color-green,
+        'warning': $color-yellow,
+        'error': $color-red
+    ),
+
+    brand: (
+        'white': $color-mystic,
+        'grey': $color-cadet-blue,
+        'dark-grey': $color-pale-sky,
+        'dark': $color-cornflower-blue,
+        'primary': $color-picton-blue
+    ),
+
+    text: (
+        'heading': $color-cornflower-blue,
+        'subheading': $color-pale-sky,
+        'primary': $color-cornflower-blue
+    ),
+
+    link: (
+        'link': $color-picton-blue,
+        'link--hover': $color-cornflower-blue,
+        'link-invert': $color-mystic,
+        'link-inver--hover': $color-pale-sky
+    )
+);
+
+
+
+// Link colors
+$link: getColor(primary);
+$link-hover: getColor(dark);
+
+$link-invert: getColor(white);
+$link-invert-hover: getColor(grey);
+
+
+
+// Breakpoints
+$small:  380px;
+$medium: 640px;
+$large:  920px;
+
+$breakpoints: (
+    'mobile': $small,
+    'tablet': $medium,
+    'desktop': $large,
+);
+
+
+
+// Typography
+$size-1: 50px;
+$size-2: 44px;
+$size-3: 36px;
+$size-4: 28px;
+$size-5: 22px;
+$size-6: 16px;
+$size-7: 12px;
+
+$font-family:           "Helvetica", "Arial", sans-serif;
+$font-family-headings:  "Helvetica", "Arial", sans-serif;
+
+
+
+// Grid
+$wrapper: 960px;
+$columns: 12;
+$gutter: 20px;

@@ -1,4 +1,5 @@
 module.exports = function (grunt) {
+
     grunt.initConfig({
 
 
@@ -9,36 +10,35 @@ module.exports = function (grunt) {
 
 
         /**
-            Directories
-            Use ex: '<%= dirs.src.js %>/main.js' -> 'src/js/main.js'
+            Paths
+            Use ex: '<%= path.src.js %>/main.js' -> 'src/js/main.js'
         **/
-        dirs: {
+        path: {
             // Source
             src: {
-                css: 'stylesheets',
+                css: 'sass',
                 img: 'images',
-                js: 'js'
+                js: 'js',
+                html: 'html'
             },
 
             // Distribution
             dist: {
                 css: 'dist/assets/css',
                 img: 'dist/assets/images',
-                js: 'dist/assets/js'
+                js: 'dist/assets/js',
+                html: 'dist'
             }
         },
 
 
         /**
-            Watch our files for changes
+            Watch our files for changes and live-reload
             https://github.com/gruntjs/grunt-contrib-watch
         **/
         watch: {
             options: {
-                livereload: {
-                    host: 'localhost',
-                    //port: '8888'
-                }
+                livereload: true,
             },
 
             gruntfile: {
@@ -49,14 +49,25 @@ module.exports = function (grunt) {
             },
 
             css: {
-                files: ['<%= dirs.src.css %>/**/*.{sass,scss,css}'],
-                tasks: ['sass'],
+                files: ['<%= path.src.css %>/**/*.{sass,scss,css}'],
+                tasks: ['sass', 'postcss:default'],
+                options: {
+                    livereload: true,
+                },
             },
 
             js: {
-                files: '<%= dirs.src.js %>/**/*.js',
-                tasks: ['uglify:default']
-            }
+                files: '<%= path.src.js %>/**/*.js',
+                tasks: ['uglify:default'],
+            },
+
+            html: {
+                files: '<%= path.src.html %>/**/*.html',
+                tasks: ['includes'],
+                options: {
+                    livereload: true,
+                },
+            },
         },
 
 
@@ -66,112 +77,53 @@ module.exports = function (grunt) {
         **/
         sass: {
             options: {
-                outputStyle: 'expanded'
+                outputStyle: 'expanded',
+                sourceMap: true,
             },
             default: {
                 files: {
-                    '<%= dirs.dist.css %>/main.css': '<%= dirs.src.css %>/main.sass'
+                    '<%= path.dist.css %>/main.css': '<%= path.src.css %>/main.sass'
                 }
             }
         },
 
 
         /**
-            Combine CSS media queries
-            https://github.com/buildingblocks/grunt-combine-media-queries
-        **/
-        cmq: {
-            default: {
-                files: {
-                    '<%= dirs.dist.css %>': '<%= dirs.dist.css %>/*.css'
-                }
-            }
-        },
-
-
-        /**
-            Finish off our CSS
+            Finish off our CSS with PostCSS (& plugins)
             https://github.com/nDmitry/grunt-postcss
         **/
         postcss: {
-            options: {
-                processors: [
-                    require('autoprefixer')({ // Add vendor prefixes
-                        browsers: [
-                            'last 2 versions',
-                            'ie 8-9',
-                        ]
-                    }),
-                    require('pixrem')(), // Add fallback units for rem
-                    //require('cssnano')(), // Minify our css
-                ]
-            },
-            default: {
-                src: '<%= dirs.dist.css %>/*.css'
-            }
-        },
-
-
-        /**
-            Combine and minify our JavaScript
-            https://github.com/gruntjs/grunt-contrib-uglify
-        **/
-        uglify: {
-            build: {
-                options: {
-                    //preserveComments: 'some'
-                },
-                files: '<%=uglify.default.files %>'
-            },
             default: {
                 options: {
-                    mangle: false,
-                    screwIE8: true,
-                    beautify: {
-                        beautify: true,
-                        comments: true,
-                        width: 50
-                    }
+                    processors: [
+                        require('autoprefixer')({browsers: ['last 2 versions']}),
+                    ]
                 },
-                files: [
-
-                    // Main.js      // Example: script1.main.js & script2.main.js -> main.min.js
-                    {
-                        dest: '<%= dirs.dist.js %>/main.min.js',
-                        src: '<%= dirs.src.js %>/*.main.js',
-
+                src: '<%= path.dist.css %>/*.css',
+            },
+            dist: {
+                options: {
+                    processors: [
                         /**
-
-                            Or you can orgranize by folder
-                            Example: src/main/script1.js & src/main/script2.js -> assets/js/main.min.js
-
-                            expand: true,
-                            cwd: '<%= dirs.src.js %>/main',
-                            src: '*.main.js',
-                            dest: '<%= dirs.dist.js %>',
-                            ext: '.min.js',
-                            extDot: 'last'
-
-                        **/
-                    },
-
-                    // Mobile.js       // Example: script1.mobile.js & script2.mobile.js -> mobile.min.js
-                    {
-                        dest: '<%= dirs.dist.js %>/mobile.min.js',
-                        src: '<%= dirs.src.js %>/*.mobile.js'
-                    },
-
-                    // Vendor          // Minified & stored separately
-                    {
-                        expand: true,
-                        cwd: '<%= dirs.src.js %>/vendor',
-                        src: '*.js',
-                        dest: '<%= dirs.dist.js %>/vendor',
-                        ext: '.min.js',
-                        extDot: 'last'
-                    }
-
-                ]
+                         * Plugins:
+                         *
+                         * AutoPrefixer: 
+                         * Pixrem: https://github.com/robwierzbowski/node-pixrem
+                         * CSSNano: https://github.com/ben-eb/cssnano
+                         * CSS MqPacker: https://github.com/hail2u/node-css-mqpacker
+                         */
+                        require('autoprefixer')({ // Add vendor prefixes
+                            browsers: [
+                                'last 2 versions',
+                                'ie 8-9',
+                            ]
+                        }),
+                        require('pixrem')(),                    // Add fallback units for rem
+                        require('cssnano')(),                   // Minify our css
+                        require('css-mqpacker')({sort: true}),  // Combine media queries
+                    ]
+                },
+                src: '<%= path.dist.css %>/*.css',
             }
         },
 
@@ -187,9 +139,25 @@ module.exports = function (grunt) {
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= dirs.src.img %>',
-                    src: ['*.{png,jpg,jpeg,gif,svg}'],
-                    dest: '<%= dirs.dist.img %>'
+                    cwd: '<%= path.src.img %>/',
+                    src: ['**/*.{png,jpg,jpeg,gif,svg}'],
+                    dest: '<%= path.dist.img %>'
+                }]
+            }
+        },
+
+
+        /**
+            Concatenate HTML files
+            https://github.com/vanetix/grunt-includes
+        **/
+        includes: {
+            default: {
+                files: [{
+                    cwd: '<%= path.src.html %>/',
+                    src: '*.html',
+                    dest: '<%= path.dist.html %>',
+                    flatten: true
                 }]
             }
         },
@@ -198,29 +166,23 @@ module.exports = function (grunt) {
     });
 
 
-
     /**
-        Load our Grunt plugins
-    **/
-    grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-sass');
-    grunt.loadNpmTasks('grunt-combine-media-queries');
-    grunt.loadNpmTasks('grunt-postcss');
-    grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-imagemin');
+     * Load Grunt tasks automatically
+     */
+    require('load-grunt-tasks')(grunt);
 
 
     /**
-        Register Tasks
-    **/
+     * Register tasks
+     */
+
     // Build our CSS and JS files
-    grunt.registerTask('build', ['sass', 'uglify:default']);
+    grunt.registerTask('build', ['includes', 'sass', 'postcss:default']);
 
     // Watch our files and compile if any changes
     grunt.registerTask('default', ['build', 'watch']);
 
     // Production - Build the files for production use
-    grunt.registerTask('production', ['sass', 'postcss', 'cmq', 'uglify:build', 'imagemin']);
+    grunt.registerTask('production', ['includes', 'sass', 'postcss:dist', 'imagemin']);
 
-
-};
+}

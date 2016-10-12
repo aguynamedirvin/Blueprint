@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+        <meta charset="utf-8">
+
+        <title>Elements | Celsius</title>
+
+        <!-- Stylesheets -->
+        <link rel="stylesheet" href="assets/css/main.css">
+
+        <script src="http://localhost:35729/livereload.js"></script>
+
+        <style>
+            .grid-showcase [col] {
+                background: #afafaf;
+                padding: 30px 5px;
+                font-size: 12px;
+                text-align: center;
+            }
+            section {
+                margin: 10rem 0
+            }
+        </style>
+
+    </head>
+
+    <body>
+
+        <div container>
+            <section>
+                <h1>The Grid</h1>
+
+                <div grid class="grid-showcase">
+                    <div col="1">
+                        col = "2"
+                    </div>
+                    <div col="3">
+                        col = "4"
+                    </div>
+                    <div col="8">
+                        col = "7"
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h1>Typography</h1>
+                <br />
+                <h1>Heading 1</h1>
+                <h2>Heading 2</h2>
+                <h3>Heading 3</h3>
+                <h4>Heading 4</h4>
+                <h5>Heading 5</h5>
+                <h6>Heading 6</h6>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+                <blockquote>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                    <cite>- Source</cite>
+                </blockquote>
+
+                <div grid>
+                    <div col="4">
+                        <ul>
+                            <li>List item</li>
+                            <li>List item</li>
+                        </ul>
+                    </div>
+                    <div col="4">
+                        <ol>
+                            <li>List item</li>
+                            <li>List item</li>
+                        </ol>
+                    </div>
+                    <div col="4">
+                        <dl>
+                            <dt>Description list item 1</dt>
+                            <dd>Description list item 1.1</dd>
+                        </dl>
+                    </div>
+                </div>
+
+            </section>
+
+            <section>
+                <h1>Forms</h1>
+
+                <form class="form">
+                    <div class="form-field">
+                        <label for="name">Name</label>
+                        <input class="has--success" type="text" id="name" placeholder="Name" />
+                        <span class="hint">Correct name</span>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="email">Email</label>
+                        <input type="text" class="has--error" id="email" placeholder="Email" />
+                        <span class="hint">Email is invalid</span>
+                    </div>
+
+                    <div class="form-field">
+                        <label for="message">Message</label>
+                        <textarea rows="3" class="has--warning" placeholder="Message"></textarea>
+                        <span class="hint">12 characters left</span>
+                    </div>
+
+
+                    <button class="btn" type="submit">Submit</button>
+                    <a class="btn  btn--flat" href="#">Clear</a>
+                </form>
+            </section>
+
+
+            <section>
+                <h1>Buttons</h1>
+
+                <button class="btn" type="button">Button</button>
+                <button class="btn  btn--disabled" type="button">Disabled</button>
+                <a class="btn" href="#">Anchor Button</a>
+                <a class="btn  btn--flat" href="#">Link</a>
+
+                <div class="btn-group">
+                    <button class="btn">One</button>
+                    <button class="btn">Two</button>
+                    <button class="btn">Three</button>
+                </div>
+            </section>
+        </div>
+
+
+    </body>
+</html>

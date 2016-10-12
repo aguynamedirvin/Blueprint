@@ -1,0 +1,52 @@
+/* ---------------------------------------------
+        Forms
+ ----------------------------------------------- */
+
+.form-field
+    margin-bottom: 1rem
+
+
+    input,
+    textarea
+        appearance: none
+        line-height: 1.6rem
+        outline: none
+        font-size: $size-6
+        font-family: inherit
+        padding: .7rem
+        min-height: 3.2rem
+        max-width: 100%
+        width: 100%
+        position: relative
+        border: 1px solid getColor(grey)
+
+        &:focus
+            border-color: getColor(dark-grey)
+
+        &.has--error
+            border-color: getColor(error, ui)
+        &.has--warning
+            border-color: getColor(warning, ui)
+        &.has--success
+            border-color: getColor(success, ui)
+
+
+    input
+        height: 3.2rem
+
+
+    label
+        display: block
+        margin-bottom: .5rem
+
+
+    .hint
+        display: inline-block
+
+        @at-root
+            .has--error + .hint
+                color: getColor(error, ui)
+            .has--warning + .hint
+                color: getColor(warning, ui)
+            .has--success + .hint
+                color: getColor(success, ui)

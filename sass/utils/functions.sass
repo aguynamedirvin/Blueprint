@@ -1,0 +1,67 @@
+//
+//  Functions
+//  --------------------------------------------------------------
+
+
+// Explode
+// -------
+// Just like PHP explode function, explode will break
+// a string into a list using the delimeterer as
+//
+// @param {$string}      -
+// @param {$delimeterer} -
+//
+// @return {list}
+
+@function explode($string, $dem)
+    $list: ()
+    $sum: str-length($string)
+
+    @for $i from 1 through $sum
+        $str: str-index($string, $dem)
+
+        @if str-length($string) >= 1 and $str == null
+            $list: append($list, $string)
+            $string: ''
+
+
+        @if type-of($str) == number
+            $each: str-slice($string, 0, ($str - 1))
+            $list: append($list, $each)
+            $string: str-slice($string, ($str + 1), $sum)
+
+
+    @return $list
+
+
+//
+// Map deep get
+// -------
+// @author Hugo Giraudel
+//
+// @access public
+//
+// @param {Map} $map - Map
+// @param {Arglist} $keys - Key chain
+//
+// @return {*} - Desired value
+
+@function map-deep-get($map, $keys...)
+    @each $key in $keys
+        $map: map-get($map, $key)
+
+    @return $map
+
+
+//
+// Color
+// -------
+// Easily retrive color using short-name
+//
+// @param {String} $name - Name of color
+// @param {String} $value -
+//
+// @return {Color} - Desired HEX value of color
+
+@function getColor($name, $value: 'brand')
+    @return map-deep-get($colors, $value, '#{$name}')

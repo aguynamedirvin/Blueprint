@@ -1,0 +1,62 @@
+/* ---------------------------------------------
+        Buttons
+ ----------------------------------------------- */
+
+.btn
+    appearance: none
+    line-height: 1.6rem
+    outline: none
+    font-size: $size-6
+    font-family: inherit
+    display: inline-block
+    color: getColor(primary)
+    cursor: pointer
+    border: 1px solid getColor(primary)
+    background-color: transparent
+    height: 3.2rem
+    padding: .7rem 3rem
+    text-align: center
+    text-decoration: none
+    user-select: none
+    vertical-align: middle
+    white-space: nowrap
+
+    &:hover,
+    &:focus
+        text-decoration: none
+        color: #fff
+        background-color: getColor(primary)
+
+    &[disabled],
+    &--disabled
+        cursor: default
+        pointer-events: none
+        opacity: .75
+
+
+// Full width
+.btn--full
+    display: block
+    width: 100%
+
+
+// Flat button
+.btn--flat
+    background: transparent
+    border-color: transparent
+    color: getColor(link, link)
+
+    &:hover,
+    &:focus
+        background: transparent
+        border-color: transparent
+        color: getColor(link--hover, link)
+
+
+// Group buttons together
+.btn-group
+    display: inline-flex
+
+    .btn
+        flex: 1 0 auto
+        margin-right: -1px

@@ -1,0 +1,27 @@
+//  --------------------------------------------------------------
+//  Mixins
+//  --------------------------------------------------------------
+
+
+//  --------------------------------------------------------------
+//  Breakpoints v0.2.0
+//
+//  @var int, string
+//  @var int, string
+//  @var string
+//  --------------------------------------------------------------
+@mixin mq($breakpoint, $breakpoint2: null, $query: min)
+
+    // Run checks
+    $breakpoint: check($breakpoint)
+    $breakpoint2: check($breakpoint2)
+
+
+    // Create media query
+    @if $breakpoint2 != null
+        @media screen and (min-width: #{$breakpoint}) and (max-width: #{$breakpoint2})
+            @content
+
+    @else
+        @media screen and (#{$query}-width: $breakpoint)
+            @content
