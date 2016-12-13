@@ -19,7 +19,8 @@ module.exports = function (grunt) {
                 css: 'sass',
                 img: 'images',
                 js: 'js',
-                html: 'html'
+                fonts: 'fonts',
+                html: 'html',
             },
 
             // Distribution
@@ -27,7 +28,8 @@ module.exports = function (grunt) {
                 css: 'dist/assets/css',
                 img: 'dist/assets/images',
                 js: 'dist/assets/js',
-                html: 'dist'
+                fonts: 'dist/assets/fonts',
+                html: 'dist',
             }
         },
 
@@ -50,7 +52,7 @@ module.exports = function (grunt) {
 
             css: {
                 files: ['<%= path.src.css %>/**/*.{sass,scss,css}'],
-                tasks: ['sass', 'postcss:default'],
+                tasks: ['sass'],
                 options: {
                     livereload: true,
                 },
@@ -83,6 +85,22 @@ module.exports = function (grunt) {
             default: {
                 files: {
                     '<%= path.dist.css %>/main.css': '<%= path.src.css %>/main.sass'
+                }
+            }
+        },
+
+
+        /**
+            Remove un-used CSS
+            https://github.com/addyosmani/grunt-uncss
+        **/
+        uncss: {
+            dist: {
+                options: {
+                    ignore: ['.js-*'],
+                },
+                files: {
+                    '<%= path.dist.css %>/main.css': '<%= path.dist.html %>/**/*.html'
                 }
             }
         },
@@ -163,6 +181,44 @@ module.exports = function (grunt) {
         },
 
 
+        /**
+            Copy files
+            https://github.com/gruntjs/grunt-contrib-copy
+        **/
+        copy: {
+            default: {
+                files: [
+                    {
+                        expand: true,
+                        src: ['<%= path.src.fonts %>/**/*', '<%= path.src.img %>/**/*'],
+                        dest: 'dist/assets/',
+                    }
+                ],
+            },
+        },
+
+
+        /**
+            Minify JS files
+            https://github.com/gruntjs/grunt-contrib-uglify
+        **/
+        uglify: {
+            options: {
+                mangle: {
+                    except: ['jQuery']
+                }
+            },
+            dist: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= path.dist.js %>',
+                    src: '**/*.js',
+                    dest: '<%= path.dist.js %>'
+                }]
+            }
+        },
+
+
     });
 
 
@@ -177,12 +233,12 @@ module.exports = function (grunt) {
      */
 
     // Build our CSS and JS files
-    grunt.registerTask('build', ['includes', 'sass', 'postcss:default']);
+    grunt.registerTask('build', ['includes', 'sass', 'postcss:default', 'copy']);
 
     // Watch our files and compile if any changes
     grunt.registerTask('default', ['build', 'watch']);
 
     // Production - Build the files for production use
-    grunt.registerTask('production', ['includes', 'sass', 'postcss:dist', 'imagemin']);
+    grunt.registerTask('production', ['includes', 'sass', 'uncss', 'postcss:dist', 'imagemin', 'uglify']);
 
 }
