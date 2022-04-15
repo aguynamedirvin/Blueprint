@@ -3,6 +3,7 @@
 2. Run `npm install` within the project folder in Terminal
 3. Run `npm build` (first time only)
 4. Run `grunt` to start file watching. Boom!
+5. Run `grunt production` to generate distribution files
 
 
 #### Further Documentation

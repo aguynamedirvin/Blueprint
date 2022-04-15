@@ -1,5 +1,7 @@
 module.exports = function (grunt) {
 
+    const sass = require('node-sass');
+
     grunt.initConfig({
 
 
@@ -79,6 +81,7 @@ module.exports = function (grunt) {
         **/
         sass: {
             options: {
+                implementation: sass,
                 outputStyle: 'expanded',
                 sourceMap: true,
             },
@@ -112,11 +115,6 @@ module.exports = function (grunt) {
         **/
         postcss: {
             default: {
-                options: {
-                    processors: [
-                        require('autoprefixer')({browsers: ['last 2 versions']}),
-                    ]
-                },
                 src: '<%= path.dist.css %>/*.css',
             },
             dist: {
